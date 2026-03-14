@@ -1,0 +1,366 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/ui/Button.astro';
+import ProductCard from '../components/ui/ProductCard.astro';
+
+// Datos de ejemplo para la página principal
+const featuredProducts = [
+  {
+    id: 'p1',
+    name: 'Chaqueta Táctica Asatro X-1',
+    price: 189.99,
+    category: 'Ropa',
+    image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1000&auto=format&fit=crop'
+  },
+  {
+    id: 'p2',
+    name: 'Botas de Combate Urbanas',
+    price: 145.50,
+    category: 'Calzado',
+    image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=1000&auto=format&fit=crop'
+  },
+  {
+    id: 'p3',
+    name: 'Mochila Stealth 45L',
+    price: 120.00,
+    category: 'Accesorios',
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=1000&auto=format&fit=crop'
+  },
+  {
+    id: 'p4',
+    name: 'Reloj Supervivencia Pro',
+    price: 210.99,
+    category: 'Gear',
+    image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=1000&auto=format&fit=crop'
+  }
+];
+---
+
+<Layout title="Asatro | Equipamiento de Alto Nivel">
+  <!-- Hero Section -->
+  <section class="hero glow-effect">
+    <div class="hero-bg"></div>
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="badge">NUEVA COLECCIÓN 2026</div>
+        <h1 class="hero-title">
+          <span>EQUIPAMIENTO</span>
+          <span class="text-primary glow-text">BRUTAL</span>
+          <span>SIN LÍMITES.</span>
+        </h1>
+        <p class="hero-description">
+          Diseñado para resistir. Construido para destacar. Explora nuestra nueva línea de equipamiento táctico y urbano con acabados premium.
+        </p>
+        <div class="hero-actions">
+          <Button href="/products" variant="primary">Explorar Catálogo</Button>
+          <Button href="#featured" variant="secondary">Ver Destacados</Button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <!-- Elemento visual decorativo del hero -->
+        <div class="abstract-shape">
+          <div class="shape-inner"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section id="featured" class="featured-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">EQUIPO <span>DESTACADO</span></h2>
+        <a href="/products" class="view-all">Ver todo &rarr;</a>
+      </div>
+      
+      <div class="products-grid">
+        {featuredProducts.map((product) => (
+          <ProductCard 
+            id={product.id}
+            name={product.name}
+            price={product.price}
+            category={product.category}
+            image={product.image}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Banner Section -->
+  <section class="banner-section">
+    <div class="container banner-container">
+      <div class="banner-content">
+        <h2>ÚNETE A LA ÉLITE</h2>
+        <p>Regístrate ahora y obtén un 15% de descuento en tu primer pedido de equipamiento premium.</p>
+        <div class="subscribe-form">
+          <input type="email" placeholder="Tu correo electrónico" class="subscribe-input" />
+          <Button variant="primary">Suscribirse</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+    z-index: -1;
+  }
+  
+  .hero-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+  }
+  
+  @media (min-width: 1024px) {
+    .hero-container {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+  
+  .badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--color-primary);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    display: flex;
+    flex-direction: column;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+  
+  .text-primary {
+    color: var(--color-primary);
+  }
+  
+  .glow-text {
+    text-shadow: 0 0 40px rgba(16, 185, 129, 0.5);
+  }
+  
+  .hero-description {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    max-width: 500px;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+  
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  /* Abstract Shape for visual interest */
+  .hero-visual {
+    display: none;
+    position: relative;
+    height: 600px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @media (min-width: 1024px) {
+    .hero-visual {
+      display: flex;
+    }
+  }
+  
+  .abstract-shape {
+    width: 400px;
+    height: 500px;
+    background: linear-gradient(135deg, var(--color-bg-secondary), #000);
+    border: 1px solid var(--border-color);
+    position: relative;
+    transform: rotate(5deg);
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(16, 185, 129, 0.1);
+  }
+  
+  .abstract-shape::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle at top right, var(--color-primary), transparent 60%);
+    opacity: 0.2;
+    z-index: 1;
+  }
+  
+  .shape-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: 
+      radial-gradient(circle at center, transparent 0%, transparent 60%, rgba(16, 185, 129, 0.2) 61%, transparent 70%),
+      radial-gradient(circle at center, transparent 0%, transparent 40%, rgba(16, 185, 129, 0.3) 41%, transparent 50%),
+      radial-gradient(circle at center, rgba(16, 185, 129, 0.1) 0%, transparent 30%);
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
+  }
+
+  /* Featured Section */
+  .featured-section {
+    padding: 6rem 0;
+    position: relative;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+  
+  .section-title span {
+    color: var(--color-primary);
+  }
+  
+  .view-all {
+    color: var(--color-text-muted);
+    font-weight: 500;
+    transition: color var(--transition-fast);
+  }
+  
+  .view-all:hover {
+    color: var(--color-primary);
+  }
+  
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+  }
+  
+  @media (min-width: 640px) {
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .products-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  /* Banner Section */
+  .banner-section {
+    padding: 4rem 0 8rem 0;
+  }
+  
+  .banner-container {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(9, 9, 11, 0.8));
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .banner-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(16, 185, 129, 0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  
+  .banner-content {
+    position: relative;
+    z-index: 10;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .banner-content h2 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  
+  .banner-content p {
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+  }
+  
+  .subscribe-form {
+    display: flex;
+    gap: 1rem;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+  
+  .subscribe-input {
+    flex: 1;
+    background-color: var(--color-bg);
+    border: 1px solid var(--border-color);
+    color: var(--color-text);
+    padding: 0 1rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    outline: none;
+    transition: border-color var(--transition-fast);
+  }
+  
+  .subscribe-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
+  }
+  
+  @media (max-width: 640px) {
+    .subscribe-form {
+      flex-direction: column;
+    }
+  }
+</style>

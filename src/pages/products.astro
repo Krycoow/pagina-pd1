@@ -1,0 +1,353 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ui/ProductCard.astro';
+
+// Simulación de base de datos de productos (en un proyecto real esto vendría de un CMS o API)
+const allProducts = [
+  {
+    id: 'p1',
+    name: 'Chaqueta Táctica Asatro X-1',
+    price: 189.99,
+    category: 'Ropa',
+    image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1000&auto=format&fit=crop'
+  },
+  {
+    id: 'p2',
+    name: 'Botas de Combate Urbanas',
+    price: 145.50,
+    category: 'Calzado',
+    image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=1000&auto=format&fit=crop'
+  },
+  {
+    id: 'p3',
+    name: 'Mochila Stealth 45L',
+    price: 120.00,
+    category: 'Accesorios',
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=1000&auto=format&fit=crop'
+  },
+  {
+    id: 'p4',
+    name: 'Reloj Supervivencia Pro',
+    price: 210.99,
+    category: 'Gear',
+    image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=1000&auto=format&fit=crop'
+  },
+  {
+    id: 'p5',
+    name: 'Pantalón Cargo Reforzado',
+    price: 89.90,
+    category: 'Ropa',
+    image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=1000&auto=format&fit=crop'
+  },
+  {
+    id: 'p6',
+    name: 'Linterna LED 5000 Lumens',
+    price: 45.00,
+    category: 'Gear',
+    image: 'https://images.unsplash.com/photo-1520696924847-acdbbc922849?q=80&w=1000&auto=format&fit=crop'
+  },
+  {
+    id: 'p7',
+    name: 'Guantes Kevlar Blackout',
+    price: 35.50,
+    category: 'Accesorios',
+    image: 'https://images.unsplash.com/photo-1549880181-56a44cf4a9a5?q=80&w=1000&auto=format&fit=crop'
+  },
+  {
+    id: 'p8',
+    name: 'Cuchillo Táctico Karambit',
+    price: 75.99,
+    category: 'Gear',
+    image: 'https://images.unsplash.com/photo-1604085572504-a392ddf0d86a?q=80&w=1000&auto=format&fit=crop'
+  }
+];
+
+// Obtener categorías únicas
+const categories = ['Todos', ...new Set(allProducts.map(p => p.category))];
+---
+
+<Layout title="Catálogo | Asatro">
+  <div class="page-header glow-effect">
+    <div class="container relative z-10">
+      <h1 class="page-title">NUESTRO <span>ARSENAL</span></h1>
+      <p class="page-description">Equipamiento diseñado para el entorno urbano y táctico.</p>
+    </div>
+  </div>
+
+  <section class="catalog-section">
+    <div class="container catalog-layout">
+      
+      <!-- Sidebar / Filtros -->
+      <aside class="catalog-filters">
+        <div class="filter-group">
+          <h3 class="filter-title">Categorías</h3>
+          <ul class="filter-list">
+            {categories.map((category, index) => (
+              <li>
+                <label class="filter-label">
+                  <input type="radio" name="category" checked={index === 0} class="filter-input" />
+                  <span class="custom-radio"></span>
+                  {category}
+                </label>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        <div class="filter-group">
+          <h3 class="filter-title">Precio</h3>
+          <ul class="filter-list">
+            <li>
+              <label class="filter-label">
+                <input type="radio" name="price" checked class="filter-input" />
+                <span class="custom-radio"></span>
+                Todos
+              </label>
+            </li>
+            <li>
+              <label class="filter-label">
+                <input type="radio" name="price" class="filter-input" />
+                <span class="custom-radio"></span>
+                Menos de $50
+              </label>
+            </li>
+            <li>
+              <label class="filter-label">
+                <input type="radio" name="price" class="filter-input" />
+                <span class="custom-radio"></span>
+                $50 - $150
+              </label>
+            </li>
+            <li>
+              <label class="filter-label">
+                <input type="radio" name="price" class="filter-input" />
+                <span class="custom-radio"></span>
+                Más de $150
+              </label>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Grid de Productos -->
+      <main class="catalog-main">
+        <div class="catalog-toolbar">
+          <p class="results-count">Mostrando <strong>{allProducts.length}</strong> productos</p>
+          <div class="sort-control">
+            <select class="sort-select">
+              <option value="featured">Destacados</option>
+              <option value="price-asc">Precio: Menor a Mayor</option>
+              <option value="price-desc">Precio: Mayor a Menor</option>
+              <option value="newest">Más recientes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="products-grid">
+          {allProducts.map((product) => (
+            <ProductCard 
+              id={product.id}
+              name={product.name}
+              price={product.price}
+              category={product.category}
+              image={product.image}
+            />
+          ))}
+        </div>
+      </main>
+      
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header {
+    background-color: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 4rem 0;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(16, 185, 129, 0.05) 0%, transparent 70%);
+  }
+
+  .page-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-title span {
+    color: var(--color-primary);
+  }
+
+  .page-description {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    max-width: 600px;
+  }
+
+  .catalog-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .catalog-layout {
+      grid-template-columns: 250px 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .catalog-filters {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    height: fit-content;
+    position: sticky;
+    top: 6rem;
+  }
+
+  .filter-group {
+    margin-bottom: 2rem;
+  }
+
+  .filter-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .filter-title {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+  }
+
+  .filter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .filter-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+    font-size: 0.95rem;
+  }
+
+  .filter-label:hover {
+    color: var(--color-text);
+  }
+
+  .filter-input {
+    display: none;
+  }
+
+  .custom-radio {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #52525b; /* zinc-600 */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+  }
+
+  .filter-input:checked + .custom-radio {
+    border-color: var(--color-primary);
+  }
+
+  .filter-input:checked + .custom-radio::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--color-primary-glow);
+  }
+
+  .filter-input:checked ~ span,
+  .filter-input:checked ~ div {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  .catalog-toolbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .catalog-toolbar {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .results-count {
+    color: var(--color-text-muted);
+  }
+
+  .results-count strong {
+    color: var(--color-text);
+  }
+
+  .sort-select {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+    transition: border-color var(--transition-fast);
+  }
+
+  .sort-select:focus {
+    border-color: var(--color-primary);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .products-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

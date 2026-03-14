@@ -1,0 +1,91 @@
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CartDrawer from '../components/CartDrawer.astro';
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { 
+	title = 'Asatro | E-commerce Brutal', 
+	description = 'La mejor tienda online con diseño espectacular en verde y negro.' 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{title}</title>
+		
+		<!-- Google Fonts: Outfit (Display) and Inter (Sans) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<Header />
+		<main>
+			<slot />
+		</main>
+		<Footer />
+		<CartDrawer />
+		
+		<!-- Global script to handle "Add to Cart" logic for all buttons -->
+		<script>
+      import { addCartItem } from '../store/cart';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        // Find all "Add to cart" buttons
+        const addToCartBtns = document.querySelectorAll('[data-action="add"]');
+        
+        addToCartBtns.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const target = e.currentTarget as HTMLElement;
+            const id = target.getAttribute('data-id');
+            const name = target.getAttribute('data-name');
+            const price = parseFloat(target.getAttribute('data-price') || '0');
+            const image = target.getAttribute('data-image');
+            
+            // If we are in the detail page, read the specific quantity input
+            let quantity = 1;
+            const dataSource = target.getAttribute('data-source');
+            if (dataSource === 'detail') {
+              const qtyInput = document.getElementById('purchaseQty') as HTMLInputElement;
+              if (qtyInput) {
+                quantity = parseInt(qtyInput.value) || 1;
+              }
+            }
+
+            if (id && name && image) {
+              addCartItem({ id, name, price, image, quantity });
+              
+              // Visual feedback
+              const originalText = target.textContent;
+              target.textContent = '¡AÑADIDO!';
+              // @ts-ignore
+              target.style.backgroundColor = 'var(--color-primary-hover)';
+              
+              // Open cart drawer
+              // @ts-ignore
+              if(typeof window.openCart === 'function') window.openCart();
+              
+              setTimeout(() => {
+                target.textContent = originalText;
+                // @ts-ignore
+                target.style.backgroundColor = '';
+              }, 1500);
+            }
+          });
+        });
+      });
+    </script>
+	</body>
+</html>
