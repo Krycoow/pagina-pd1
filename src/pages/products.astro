@@ -6,59 +6,59 @@ import ProductCard from '../components/ui/ProductCard.astro';
 const allProducts = [
   {
     id: 'p1',
-    name: 'Chaqueta Táctica Asatro X-1',
-    price: 189.99,
-    category: 'Ropa',
-    image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1000&auto=format&fit=crop'
+    name: 'Elf Bar 600 V2 - Watermelon Bubblegum',
+    price: 7.50,
+    category: 'Desechables',
+    image: 'https://images.unsplash.com/photo-1579247289081-dc1a182b8e3c?q=80&w=1000&auto=format&fit=crop'
   },
   {
     id: 'p2',
-    name: 'Botas de Combate Urbanas',
-    price: 145.50,
-    category: 'Calzado',
-    image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=1000&auto=format&fit=crop'
+    name: 'Vaporesso XROS 3 Pod Kit',
+    price: 34.99,
+    category: 'Kits & Pods',
+    image: 'https://images.unsplash.com/photo-1546197116-bb984d4b1a53?q=80&w=1000&auto=format&fit=crop'
   },
   {
     id: 'p3',
-    name: 'Mochila Stealth 45L',
-    price: 120.00,
-    category: 'Accesorios',
-    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=1000&auto=format&fit=crop'
+    name: 'Riot Squad - Blue Burst 50ml',
+    price: 14.50,
+    category: 'Líquidos',
+    image: 'https://images.unsplash.com/photo-1620606180536-f3b14d245dae?q=80&w=1000&auto=format&fit=crop'
   },
   {
     id: 'p4',
-    name: 'Reloj Supervivencia Pro',
-    price: 210.99,
-    category: 'Gear',
-    image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=1000&auto=format&fit=crop'
+    name: 'Crystal Bar 600 - Cherry Ice',
+    price: 6.99,
+    category: 'Desechables',
+    image: 'https://images.unsplash.com/photo-1618252273151-a0c3260840c5?q=80&w=1000&auto=format&fit=crop'
   },
   {
     id: 'p5',
-    name: 'Pantalón Cargo Reforzado',
-    price: 89.90,
-    category: 'Ropa',
-    image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=1000&auto=format&fit=crop'
+    name: 'Voopoo Drag M100S Kit',
+    price: 55.90,
+    category: 'Kits & Pods',
+    image: 'https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=1000&auto=format&fit=crop'
   },
   {
     id: 'p6',
-    name: 'Linterna LED 5000 Lumens',
-    price: 45.00,
-    category: 'Gear',
-    image: 'https://images.unsplash.com/photo-1520696924847-acdbbc922849?q=80&w=1000&auto=format&fit=crop'
+    name: 'Just Juice - Mango & Passion Fruit 100ml',
+    price: 19.95,
+    category: 'Líquidos',
+    image: 'https://images.unsplash.com/photo-1582292850384-adfb915998a9?q=80&w=1000&auto=format&fit=crop'
   },
   {
     id: 'p7',
-    name: 'Guantes Kevlar Blackout',
-    price: 35.50,
-    category: 'Accesorios',
-    image: 'https://images.unsplash.com/photo-1549880181-56a44cf4a9a5?q=80&w=1000&auto=format&fit=crop'
+    name: 'Lost Mary BM600 - Triple Mango',
+    price: 7.95,
+    category: 'Desechables',
+    image: 'https://images.unsplash.com/photo-1555700770-b75b1c7dc789?q=80&w=1000&auto=format&fit=crop'
   },
   {
     id: 'p8',
-    name: 'Cuchillo Táctico Karambit',
-    price: 75.99,
-    category: 'Gear',
-    image: 'https://images.unsplash.com/photo-1604085572504-a392ddf0d86a?q=80&w=1000&auto=format&fit=crop'
+    name: 'Resistencias Vaporesso GTX Mesh (Pack 5)',
+    price: 12.50,
+    category: 'Accesorios',
+    image: 'https://images.unsplash.com/photo-1518066531980-60b6d2eabd70?q=80&w=1000&auto=format&fit=crop'
   }
 ];
 
@@ -66,11 +66,11 @@ const allProducts = [
 const categories = ['Todos', ...new Set(allProducts.map(p => p.category))];
 ---
 
-<Layout title="Catálogo | Asatro">
+<Layout title="Catálogo Vape | NeonClouds">
   <div class="page-header glow-effect">
     <div class="container relative z-10">
-      <h1 class="page-title">NUESTRO <span>ARSENAL</span></h1>
-      <p class="page-description">Equipamiento diseñado para el entorno urbano y táctico.</p>
+      <h1 class="page-title">NUESTRO <span>CATÁLOGO</span></h1>
+      <p class="page-description">Encuentra los pods, líquidos y kits más brutales del mercado.</p>
     </div>
   </div>
 

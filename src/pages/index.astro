@@ -7,53 +7,53 @@ import ProductCard from '../components/ui/ProductCard.astro';
 const featuredProducts = [
   {
     id: 'p1',
-    name: 'Chaqueta Táctica Asatro X-1',
-    price: 189.99,
-    category: 'Ropa',
-    image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1000&auto=format&fit=crop'
+    name: 'Elf Bar 600 V2 - Watermelon Bubblegum',
+    price: 7.50,
+    category: 'Desechables',
+    image: 'https://images.unsplash.com/photo-1579247289081-dc1a182b8e3c?q=80&w=1000&auto=format&fit=crop'
   },
   {
     id: 'p2',
-    name: 'Botas de Combate Urbanas',
-    price: 145.50,
-    category: 'Calzado',
-    image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=1000&auto=format&fit=crop'
+    name: 'Vaporesso XROS 3 Pod Kit',
+    price: 34.99,
+    category: 'Kits & Pods',
+    image: 'https://images.unsplash.com/photo-1546197116-bb984d4b1a53?q=80&w=1000&auto=format&fit=crop'
   },
   {
     id: 'p3',
-    name: 'Mochila Stealth 45L',
-    price: 120.00,
-    category: 'Accesorios',
-    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=1000&auto=format&fit=crop'
+    name: 'Riot Squad - Blue Burst 50ml',
+    price: 14.50,
+    category: 'Líquidos',
+    image: 'https://images.unsplash.com/photo-1620606180536-f3b14d245dae?q=80&w=1000&auto=format&fit=crop'
   },
   {
     id: 'p4',
-    name: 'Reloj Supervivencia Pro',
-    price: 210.99,
-    category: 'Gear',
-    image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=1000&auto=format&fit=crop'
+    name: 'Crystal Bar 600 - Cherry Ice',
+    price: 6.99,
+    category: 'Desechables',
+    image: 'https://images.unsplash.com/photo-1618252273151-a0c3260840c5?q=80&w=1000&auto=format&fit=crop'
   }
 ];
 ---
 
-<Layout title="Asatro | Equipamiento de Alto Nivel">
+<Layout title="NeonClouds | Vape Shop Premium">
   <!-- Hero Section -->
   <section class="hero glow-effect">
     <div class="hero-bg"></div>
     <div class="container hero-container">
       <div class="hero-content">
-        <div class="badge">NUEVA COLECCIÓN 2026</div>
+        <div class="badge">NUEVOS SABORES 2026</div>
         <h1 class="hero-title">
-          <span>EQUIPAMIENTO</span>
-          <span class="text-primary glow-text">BRUTAL</span>
+          <span>NUBES </span>
+          <span class="text-primary glow-text">ÉPICAS</span>
           <span>SIN LÍMITES.</span>
         </h1>
         <p class="hero-description">
-          Diseñado para resistir. Construido para destacar. Explora nuestra nueva línea de equipamiento táctico y urbano con acabados premium.
+          Los mejores líquidos premium, pods desechables y kits de inicio. Diseños brutales y sabores intensos que rompen las reglas.
         </p>
         <div class="hero-actions">
           <Button href="/products" variant="primary">Explorar Catálogo</Button>
-          <Button href="#featured" variant="secondary">Ver Destacados</Button>
+          <Button href="#featured" variant="secondary">Ver Top Ventas</Button>
         </div>
       </div>
       <div class="hero-visual">
@@ -69,8 +69,8 @@ const featuredProducts = [
   <section id="featured" class="featured-section">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">EQUIPO <span>DESTACADO</span></h2>
-        <a href="/products" class="view-all">Ver todo &rarr;</a>
+        <h2 class="section-title">NUESTROS <span>TOP VENTAS</span></h2>
+        <a href="/products" class="view-all">Ver todo el catálogo &rarr;</a>
       </div>
       
       <div class="products-grid">
@@ -91,11 +91,11 @@ const featuredProducts = [
   <section class="banner-section">
     <div class="container banner-container">
       <div class="banner-content">
-        <h2>ÚNETE A LA ÉLITE</h2>
-        <p>Regístrate ahora y obtén un 15% de descuento en tu primer pedido de equipamiento premium.</p>
+        <h2>OFERTA BRUTAL</h2>
+        <p>Suscríbete ahora y llévate un 15% de descuento en tu primer pedido de líquidos premium & desechables.</p>
         <div class="subscribe-form">
           <input type="email" placeholder="Tu correo electrónico" class="subscribe-input" />
-          <Button variant="primary">Suscribirse</Button>
+          <Button variant="primary">¡Lo quiero!</Button>
         </div>
       </div>
     </div>

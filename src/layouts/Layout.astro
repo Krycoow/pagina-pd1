@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CartDrawer from '../components/CartDrawer.astro';
+import AgeGate from '../components/AgeGate.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -10,8 +11,8 @@ interface Props {
 }
 
 const { 
-	title = 'Asatro | E-commerce Brutal', 
-	description = 'La mejor tienda online con diseño espectacular en verde y negro.' 
+	title = 'NeonClouds | Vape Shop Premium', 
+	description = 'Tu tienda de vapeo definitiva. Desechables, e-liquids y pods con un diseño brutal.' 
 } = Astro.props;
 ---
 
@@ -36,6 +37,7 @@ const {
 		</main>
 		<Footer />
 		<CartDrawer />
+		<AgeGate />
 		
 		<!-- Global script to handle "Add to Cart" logic for all buttons -->
 		<script>

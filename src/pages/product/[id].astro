@@ -7,75 +7,75 @@ export function getStaticPaths() {
   const allProducts = [
     {
       id: 'p1',
-      name: 'Chaqueta Táctica Asatro X-1',
-      price: 189.99,
-      category: 'Ropa',
-      description: 'Chaqueta transpirable de nivel 4 impermeable con recubrimiento de teflón. Diseñada para entornos hostiles donde cada detalle cuenta. Multitud de bolsillos ocultos y refuerzos de Cordura en zonas de choque.',
-      features: ['100% Impermeable', 'Refuerzos en codos', '8 bolsillos tácticos', 'Capucha plegable'],
-      image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1000&auto=format&fit=crop'
+      name: 'Elf Bar 600 V2 - Watermelon Bubblegum',
+      price: 7.50,
+      category: 'Desechables',
+      description: 'El clásico sabor a chicle de sandía en la versión V2 de Elf Bar. Nueva tecnología de resistencia QUAQ Mesh que garantiza un sabor más intenso desde la primera hasta la última calada.',
+      features: ['600 Puffs (Caladas)', '20mg Nicotina (Sales)', 'Resistencia QUAQ Mesh', 'Batería 550mAh'],
+      image: 'https://images.unsplash.com/photo-1579247289081-dc1a182b8e3c?q=80&w=1000&auto=format&fit=crop'
     },
     {
       id: 'p2',
-      name: 'Botas de Combate Urbanas',
-      price: 145.50,
-      category: 'Calzado',
-      description: 'Botas ligeras de intervención diseñadas para asfalto. Suela antideslizante con absorción de impactos y sistema de atado rápido.',
-      features: ['Suela Vibram', 'Punta reforzada', 'Cremallera lateral', 'Transpirables'],
-      image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=1000&auto=format&fit=crop'
+      name: 'Vaporesso XROS 3 Pod Kit',
+      price: 34.99,
+      category: 'Kits & Pods',
+      description: 'El mejor pod recargable del mercado. Cruza el límite del sabor y el diseño con el nuevo XROS 3. Batería de alta densidad que dura hasta 48 horas de uso con una sola carga.',
+      features: ['Batería 1000mAh', 'Flujo de aire ajustable', 'Reconocimiento inteligente de resistencia', 'Carga rápida Type-C'],
+      image: 'https://images.unsplash.com/photo-1546197116-bb984d4b1a53?q=80&w=1000&auto=format&fit=crop'
     },
     {
       id: 'p3',
-      name: 'Mochila Stealth 45L',
-      price: 120.00,
-      category: 'Accesorios',
-      description: 'Capacidad expansible y sistema MOLLE cortado por láser para un perfil bajo. Ideal para misiones de 48 horas o como EDC todoterreno.',
-      features: ['Nylon 1000D', 'Espalda ergonómica ventilada', 'Compartimento para portátil', 'Cremalleras YKK'],
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=1000&auto=format&fit=crop'
+      name: 'Riot Squad - Blue Burst 50ml',
+      price: 14.50,
+      category: 'Líquidos',
+      description: 'Una explosión azul helada. Mezcla refrescante de frambuesa azul dulce con un final mentolado brutal. Formato Shortfill preparado para añadir el Nicokit.',
+      features: ['Ratio 70VG/30PG', '50ml (Shortfill 60ml)', 'Sabor Frambuesa Azul Helada', 'Sin nicotina base (Añadir Nicokit)'],
+      image: 'https://images.unsplash.com/photo-1620606180536-f3b14d245dae?q=80&w=1000&auto=format&fit=crop'
     },
     {
       id: 'p4',
-      name: 'Reloj Supervivencia Pro',
-      price: 210.99,
-      category: 'Gear',
-      description: 'El reloj definitivo para condiciones extremas. Brújula, altímetro, barómetro y batería solar en una caja de titanio reforzado.',
-      features: ['Cristal de zafiro', 'Sumergible 200m', 'Carga solar', 'GPS Integrado'],
-      image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=1000&auto=format&fit=crop'
+      name: 'Crystal Bar 600 - Cherry Ice',
+      price: 6.99,
+      category: 'Desechables',
+      description: 'Cerezas dulces y oscuras recogidas en su punto exacto de maduración, envueltas en una ráfaga de hielo aplastado. Diseño transparente icónico de Crystal.',
+      features: ['600 Puffs (Caladas)', '20mg Nicotina (Sales)', 'Diseño transparente premium', 'Batería 500mAh'],
+      image: 'https://images.unsplash.com/photo-1618252273151-a0c3260840c5?q=80&w=1000&auto=format&fit=crop'
     },
     {
       id: 'p5',
-      name: 'Pantalón Cargo Reforzado',
-      price: 89.90,
-      category: 'Ropa',
-      description: 'Pantalón antidesgarros con tratamiento repelente al agua. Corte ergonómico que permite total libertad de movimientos.',
-      features: ['Tejido Ripstop', 'Cintura elástica', 'Rodillas preformadas'],
-      image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=1000&auto=format&fit=crop'
+      name: 'Voopoo Drag M100S Kit',
+      price: 55.90,
+      category: 'Kits & Pods',
+      description: 'Un equipo legendario de alta gama. Acabados en madera solida o mate antireflejos. Salida explosiva de 100W alimentada por una sola batería (no incluida).',
+      features: ['Hasta 100W de potencia', 'Interruptor dinámico multifunción', 'Tanque UFORCE-L', 'A prueba de fugas'],
+      image: 'https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=1000&auto=format&fit=crop'
     },
     {
       id: 'p6',
-      name: 'Linterna LED 5000 Lumens',
-      price: 45.00,
-      category: 'Gear',
-      description: 'Iluminación táctica cegadora de 5000 lumens con cuerpo de aluminio aeroespacial. Múltiples modos incluyendo estroboscópico defensivo.',
-      features: ['Aluminio T6061', 'Batería recargable USB-C', 'Modo SOS', 'Resistente a caídas 2m'],
-      image: 'https://images.unsplash.com/photo-1520696924847-acdbbc922849?q=80&w=1000&auto=format&fit=crop'
+      name: 'Just Juice - Mango & Passion Fruit 100ml',
+      price: 19.95,
+      category: 'Líquidos',
+      description: 'Si te gustan las frutas tropicales, esto te va a volar la cabeza. Mango jugoso mezclado con fruta de la pasión para crear una combinación cítrica y dulce espectacular.',
+      features: ['Ratio 70VG/30PG', 'Botella 100ml', 'Sabor Frutal Tropical', 'Fabricado en UK'],
+      image: 'https://images.unsplash.com/photo-1582292850384-adfb915998a9?q=80&w=1000&auto=format&fit=crop'
     },
     {
       id: 'p7',
-      name: 'Guantes Kevlar Blackout',
-      price: 35.50,
-      category: 'Accesorios',
-      description: 'Protección máxima sin perder destreza. Nudillos reforzados y material anti-corte en la palma.',
-      features: ['Protección Kevlar', 'Compatibles con pantallas táctiles', 'Ajuste de velcro TPR'],
-      image: 'https://images.unsplash.com/photo-1549880181-56a44cf4a9a5?q=80&w=1000&auto=format&fit=crop'
+      name: 'Lost Mary BM600 - Triple Mango',
+      price: 7.95,
+      category: 'Desechables',
+      description: 'El diseño cuadrado ultracompacto se une al sabor dulce e intenso a mango puro en sus notas más destacadas.',
+      features: ['600 Puffs', 'Formato cuadrado bolsillo', '20mg Nicotina (Sales)', 'Activación por inhalación'],
+      image: 'https://images.unsplash.com/photo-1555700770-b75b1c7dc789?q=80&w=1000&auto=format&fit=crop'
     },
     {
       id: 'p8',
-      name: 'Cuchillo Táctico Karambit',
-      price: 75.99,
-      category: 'Gear',
-      description: 'Hoja fija de acero D2 con recubrimiento de titanio negro. Funda Kydex de extracción rápida. Diseño brutal y efectivo.',
-      features: ['Acero D2', 'Mango G10', 'Anillo de retención', 'Funda multiposición'],
-      image: 'https://images.unsplash.com/photo-1604085572504-a392ddf0d86a?q=80&w=1000&auto=format&fit=crop'
+      name: 'Resistencias Vaporesso GTX Mesh (Pack 5)',
+      price: 12.50,
+      category: 'Accesorios',
+      description: 'Pack de 5 resistencias de repuesto originales de Vaporesso de malla. Excelente producción de sabor y vapor prolongado.',
+      features: ['Tecnología Anti-Leak', 'Ohmiaje a elegir (0.2 a 1.2)', 'Algodón antibacteriano', 'Mayor duración'],
+      image: 'https://images.unsplash.com/photo-1518066531980-60b6d2eabd70?q=80&w=1000&auto=format&fit=crop'
     }
   ];
 
@@ -88,7 +88,7 @@ export function getStaticPaths() {
 const { product } = Astro.props;
 ---
 
-<Layout title={`${product.name} | Asatro`}>
+<Layout title={`${product.name} | NeonClouds`}>
   <div class="product-page">
     <div class="container py-xl">
       <div class="breadcrumb">
@@ -157,11 +157,11 @@ const { product } = Astro.props;
           <div class="product-meta">
             <div class="meta-item">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-              <span>Envío gratis en pedidos superiores a $150</span>
+              <span>Envío express gratis en pedidos superiores a $50</span>
             </div>
             <div class="meta-item">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-              <span>Garantía táctica de por vida</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></svg>
+              <span>Líquidos 100% Originales y Certificados</span>
             </div>
           </div>
         </div>
