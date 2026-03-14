@@ -44,62 +44,57 @@ const {
       import { addCartItem } from '../store/cart';
       import { authStore } from '../store/auth';
 
-      document.addEventListener('DOMContentLoaded', () => {
-        // Find all "Add to cart" buttons
-        const addToCartBtns = document.querySelectorAll('[data-action="add"]');
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const addBtn = target.closest('[data-action="add"]') as HTMLElement;
         
-        addToCartBtns.forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Comprobación de autenticación (Fase 5)
-            const user = authStore.get();
-            if (!user) {
-              window.location.href = '/login';
-              return;
+        if (addBtn) {
+          e.preventDefault();
+          
+          // Comprobación de autenticación (Fase 5)
+          const user = authStore.get();
+          if (!user) {
+            window.location.href = '/login';
+            return;
+          }
+          
+          const id = addBtn.getAttribute('data-id');
+          const name = addBtn.getAttribute('data-name');
+          const price = parseFloat(addBtn.getAttribute('data-price') || '0');
+          const image = addBtn.getAttribute('data-image');
+          
+          // If we are in the detail page, read the specific quantity input
+          let quantity = 1;
+          const dataSource = addBtn.getAttribute('data-source');
+          if (dataSource === 'detail') {
+            const qtyInput = document.getElementById('purchaseQty') as HTMLInputElement;
+            if (qtyInput) {
+              quantity = parseInt(qtyInput.value) || 1;
             }
-            
-            const target = e.currentTarget as HTMLElement;
-            const id = target.getAttribute('data-id');
-            const name = target.getAttribute('data-name');
-            const price = parseFloat(target.getAttribute('data-price') || '0');
-            const image = target.getAttribute('data-image');
-            
-            // If we are in the detail page, read the specific quantity input
-            let quantity = 1;
-            const dataSource = target.getAttribute('data-source');
-            if (dataSource === 'detail') {
-              const qtyInput = document.getElementById('purchaseQty') as HTMLInputElement;
-              if (qtyInput) {
-                quantity = parseInt(qtyInput.value) || 1;
-              }
-            }
+          }
 
-            if (id && name && image) {
-              // Animación Fly-to-cart (Fase 6)
-              flyToCartAnimation(target, image);
-              
-              // Añadir lógicamente al store
-              addCartItem({ id, name, price, image, quantity });
-              
-              // Visual feedback
-              const originalText = target.textContent;
-              target.textContent = '¡AÑADIDO!';
+          if (id && name && image) {
+            // Añadir lógicamente al store
+            addCartItem({ id, name, price, image, quantity });
+
+            // Animación Fly-to-cart (Fase 6)
+            flyToCartAnimation(addBtn, image);
+            
+            // Visual feedback
+            const originalText = addBtn.textContent;
+            addBtn.textContent = '¡AÑADIDO!';
+            addBtn.style.backgroundColor = 'var(--color-primary-hover)';
+            
+            // Open cart drawer despues del delay de la animacion
+            setTimeout(() => {
               // @ts-ignore
-              target.style.backgroundColor = 'var(--color-primary-hover)';
+              if(typeof window.openCart === 'function') window.openCart();
               
-              // Open cart drawer despues del delay de la animacion
-              setTimeout(() => {
-                // @ts-ignore
-                if(typeof window.openCart === 'function') window.openCart();
-                
-                target.textContent = originalText;
-                // @ts-ignore
-                target.style.backgroundColor = '';
-              }, 800);
-            }
-          });
-        });
+              addBtn.textContent = originalText;
+              addBtn.style.backgroundColor = '';
+            }, 800);
+          }
+        }
       });
 
       // Lógica de clonado y movimiento hacia el carrito
