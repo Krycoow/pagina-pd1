@@ -42,6 +42,7 @@ const {
 		<!-- Global script to handle "Add to Cart" logic for all buttons -->
 		<script>
       import { addCartItem } from '../store/cart';
+      import { authStore } from '../store/auth';
 
       document.addEventListener('DOMContentLoaded', () => {
         // Find all "Add to cart" buttons
@@ -50,6 +51,13 @@ const {
         addToCartBtns.forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.preventDefault();
+            
+            // Comprobación de autenticación (Fase 5)
+            const user = authStore.get();
+            if (!user) {
+              window.location.href = '/login';
+              return;
+            }
             
             const target = e.currentTarget as HTMLElement;
             const id = target.getAttribute('data-id');
@@ -68,6 +76,10 @@ const {
             }
 
             if (id && name && image) {
+              // Animación Fly-to-cart (Fase 6)
+              flyToCartAnimation(target, image);
+              
+              // Añadir lógicamente al store
               addCartItem({ id, name, price, image, quantity });
               
               // Visual feedback
@@ -76,19 +88,73 @@ const {
               // @ts-ignore
               target.style.backgroundColor = 'var(--color-primary-hover)';
               
-              // Open cart drawer
-              // @ts-ignore
-              if(typeof window.openCart === 'function') window.openCart();
-              
+              // Open cart drawer despues del delay de la animacion
               setTimeout(() => {
+                // @ts-ignore
+                if(typeof window.openCart === 'function') window.openCart();
+                
                 target.textContent = originalText;
                 // @ts-ignore
                 target.style.backgroundColor = '';
-              }, 1500);
+              }, 800);
             }
           });
         });
       });
+
+      // Lógica de clonado y movimiento hacia el carrito
+      function flyToCartAnimation(buttonElement: HTMLElement, imageSrc: string) {
+        // Buscar el icono del carrito de destino
+        const cartIcon = document.getElementById('cartToggleBtn');
+        if (!cartIcon) return;
+
+        // Intentar encontrar la imagen del producto
+        const card = buttonElement.closest('.product-card');
+        const productImage = card ? card.querySelector('.product-image') : null;
+
+        const startRect = productImage ? productImage.getBoundingClientRect() : buttonElement.getBoundingClientRect();
+        const endRect = cartIcon.getBoundingClientRect();
+
+        // Crear el clon volador
+        const clone = document.createElement('img');
+        clone.src = imageSrc;
+        clone.style.position = 'fixed';
+        clone.style.top = `${startRect.top}px`;
+        clone.style.left = `${startRect.left}px`;
+        clone.style.width = `${startRect.width}px`;
+        clone.style.height = `${startRect.height}px`;
+        clone.style.objectFit = 'cover';
+        clone.style.borderRadius = 'var(--radius-md)';
+        clone.style.zIndex = '9999';
+        clone.style.transition = 'all 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
+        clone.style.pointerEvents = 'none';
+        clone.style.boxShadow = 'var(--shadow-neon-intense)';
+        
+        document.body.appendChild(clone);
+
+        // Forzar reflow para que corra la transición
+        void clone.offsetWidth;
+
+        // Calcular destino centrado en el icono de carrito
+        const destX = endRect.left + endRect.width / 2 - 20; // 40px width expected
+        const destY = endRect.top + endRect.height / 2 - 20;
+
+        // Disparar animación de vuelo
+        clone.style.top = `${destY}px`;
+        clone.style.left = `${destX}px`;
+        clone.style.width = '40px';
+        clone.style.height = '40px';
+        clone.style.opacity = '0.5';
+        clone.style.transform = 'scale(0.5) rotate(360deg)';
+
+        // Al finalizar la animación
+        setTimeout(() => {
+          clone.remove();
+          // Hacer rebotar el carrito
+          cartIcon.classList.add('bump');
+          setTimeout(() => cartIcon.classList.remove('bump'), 300);
+        }, 800);
+      }
     </script>
 	</body>
 </html>

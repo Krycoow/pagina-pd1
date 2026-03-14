@@ -7,11 +7,52 @@
     <nav class="nav">
       <ul class="nav-list">
         <li><a href="/" class="nav-link">Inicio</a></li>
-        <li><a href="/products" class="nav-link">Catálogo Vape</a></li>
+        <li class="nav-item-dropdown">
+          <a href="/products" class="nav-link dropdown-trigger">
+            Catálogo Vape
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </a>
+          <div class="dropdown-menu">
+            <div class="dropdown-content">
+              <a href="/products" class="dropdown-item">
+                <span class="dropdown-icon">🌬️</span>
+                <div class="dropdown-text">
+                  <strong>Desechables</strong>
+                  <span>Tirar y listo. Sin setups.</span>
+                </div>
+              </a>
+              <a href="/products" class="dropdown-item">
+                <span class="dropdown-icon">💧</span>
+                <div class="dropdown-text">
+                  <strong>Líquidos Premium</strong>
+                  <span>Frutales, postres y mentolados.</span>
+                </div>
+              </a>
+              <a href="/products" class="dropdown-item">
+                <span class="dropdown-icon">⚡</span>
+                <div class="dropdown-text">
+                  <strong>Kits & Pods</strong>
+                  <span>Equipos recargables top ventas.</span>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="/products" class="dropdown-item view-all-item">
+                <span>Ver todo el catálogo</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+            </div>
+          </div>
+        </li>
       </ul>
     </nav>
     
     <div class="header-actions">
+      <!-- Profile/Login Status -->
+      <a id="authLink" href="/login" class="nav-link auth-status" style="margin-right: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span id="authName">Login</span>
+      </a>
+
       <!-- Icono de Carrito -->
       <button class="cart-btn" aria-label="Abrir carrito" id="cartToggleBtn">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -24,6 +65,29 @@
     </div>
   </div>
 </header>
+
+<script>
+  import { authStore } from '../store/auth';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Escuchar cambios en authStore (o leer inicial)
+    const updateAuthUI = (user: any) => {
+      const authLink = document.getElementById('authLink') as HTMLAnchorElement;
+      const authName = document.getElementById('authName');
+      
+      if (user && user.name) {
+        if (authName) authName.textContent = user.name;
+        // Si ya está logueado, podemos hacerlo que vaya a un perfil, pero para demo es nada
+        if (authLink) {
+          authLink.href = "#";
+          authLink.classList.add('logged-in');
+        }
+      }
+    };
+
+    authStore.subscribe(updateAuthUI);
+  });
+</script>
 
 <style>
   .header {
@@ -89,6 +153,132 @@
     width: 100%;
   }
 
+  /* Dropdown Styles */
+  .nav-item-dropdown {
+    position: relative;
+  }
+
+  .dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .chevron {
+    transition: transform var(--transition-normal);
+  }
+
+  .nav-item-dropdown:hover .chevron {
+    transform: rotate(180deg);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    padding-top: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+    z-index: 100;
+  }
+
+  .nav-item-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .dropdown-content {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-elevated), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    width: 320px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dropdown-content::before {
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top, rgba(0, 255, 102, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    color: var(--color-text);
+    transition: background-color var(--transition-fast);
+    position: relative;
+    z-index: 10;
+  }
+
+  .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+
+  .dropdown-icon {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+  }
+
+  .dropdown-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dropdown-text strong {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.1rem;
+    transition: color var(--transition-fast);
+  }
+
+  .dropdown-item:hover .dropdown-text strong {
+    color: var(--color-primary);
+  }
+
+  .dropdown-text span {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  .dropdown-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0.5rem 1.5rem;
+  }
+
+  .view-all-item {
+    padding: 1rem 1.5rem;
+    justify-content: space-between;
+    color: var(--color-primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .view-all-item:hover {
+    background-color: rgba(0, 255, 102, 0.05);
+  }
+
   .cart-btn {
     position: relative;
     display: flex;
@@ -124,5 +314,22 @@
     align-items: center;
     justify-content: center;
     padding: 0 6px;
+  }
+
+  .auth-status.logged-in span {
+    color: var(--color-primary);
+  }
+
+  /* Cart bump animation class triggered by JS */
+  .cart-btn.bump {
+    animation: cartBump 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px var(--color-primary-glow);
+  }
+
+  @keyframes cartBump {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3) translateY(-5px); }
+    100% { transform: scale(1); }
   }
 </style>

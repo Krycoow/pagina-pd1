@@ -144,14 +144,16 @@ const categories = ['Todos', ...new Set(allProducts.map(p => p.category))];
         </div>
 
         <div class="products-grid">
-          {allProducts.map((product) => (
-            <ProductCard 
-              id={product.id}
-              name={product.name}
-              price={product.price}
-              category={product.category}
-              image={product.image}
-            />
+          {allProducts.map((product, index) => (
+            <div class={`animate-fade-in-up delay-${(index % 4) + 1}`}>
+              <ProductCard 
+                id={product.id}
+                name={product.name}
+                price={product.price}
+                category={product.category}
+                image={product.image}
+              />
+            </div>
           ))}
         </div>
       </main>

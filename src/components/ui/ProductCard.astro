@@ -42,6 +42,41 @@ const { id, name, price, image, category } = Astro.props;
   </div>
 </article>
 
+<script>
+  // 3D Tilt Effect for Product Cards
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.product-card');
+    
+    cards.forEach(card => {
+      // @ts-ignore
+      card.addEventListener('mousemove', (e) => {
+        // @ts-ignore
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left; // x position within the element.
+        const y = e.clientY - rect.top;  // y position within the element.
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -10; // Max 10 deg rotation
+        const rotateY = ((x - centerX) / centerX) * 10;
+        
+        // @ts-ignore
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        // @ts-ignore
+        card.style.boxShadow = 'var(--shadow-neon-intense)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        // @ts-ignore
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        // @ts-ignore
+        card.style.boxShadow = 'none';
+      });
+    });
+  });
+</script>
+
 <style>
   .product-card {
     display: flex;
@@ -50,13 +85,14 @@ const { id, name, price, image, category } = Astro.props;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     overflow: hidden;
-    transition: all var(--transition-normal);
+    transition: transform 0.1s ease, box-shadow var(--transition-normal), border-color var(--transition-normal);
     height: 100%;
+    transform-style: preserve-3d;
+    will-change: transform;
   }
 
   .product-card:hover {
-    border-color: #3f3f46;
-    transform: translateY(-5px);
+    border-color: var(--color-primary);
   }
 
   .product-link {
@@ -77,10 +113,11 @@ const { id, name, price, image, category } = Astro.props;
     height: 100%;
     object-fit: cover;
     transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(20px); /* 3D pop effect */
   }
 
   .product-card:hover .product-image {
-    transform: scale(1.05);
+    transform: scale(1.1) translateZ(30px);
   }
 
   .category-badge {

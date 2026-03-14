@@ -42,24 +42,89 @@ const featuredProducts = [
     <div class="hero-bg"></div>
     <div class="container hero-container">
       <div class="hero-content">
-        <div class="badge">NUEVOS SABORES 2026</div>
-        <h1 class="hero-title">
+        <div class="badge animate-fade-in-up">NUEVOS SABORES 2026</div>
+        <h1 class="hero-title animate-fade-in-up delay-1">
           <span>NUBES </span>
           <span class="text-primary glow-text">ÉPICAS</span>
           <span>SIN LÍMITES.</span>
         </h1>
-        <p class="hero-description">
+        <p class="hero-description animate-fade-in-up delay-2">
           Los mejores líquidos premium, pods desechables y kits de inicio. Diseños brutales y sabores intensos que rompen las reglas.
         </p>
-        <div class="hero-actions">
+        <div class="hero-actions animate-fade-in-up delay-3">
           <Button href="/products" variant="primary">Explorar Catálogo</Button>
           <Button href="#featured" variant="secondary">Ver Top Ventas</Button>
         </div>
       </div>
-      <div class="hero-visual">
+      <div class="hero-visual animate-fade-in-up delay-4">
         <!-- Elemento visual decorativo del hero -->
-        <div class="abstract-shape">
+        <div class="abstract-shape levitate">
           <div class="shape-inner"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee de Marcas (VapeoTotal style) -->
+  <div class="marquee-wrapper">
+    <div class="marquee-content">
+      <span>VAPORESSO</span>
+      <span class="dot">•</span>
+      <span>ELF BAR</span>
+      <span class="dot">•</span>
+      <span>VOOPOO</span>
+      <span class="dot">•</span>
+      <span>RIOT SQUAD</span>
+      <span class="dot">•</span>
+      <span>LOST MARY</span>
+      <span class="dot">•</span>
+      <span>CRYSTAL BAR</span>
+      <span class="dot">•</span>
+      <span>JUST JUICE</span>
+      <span class="dot">•</span>
+      <!-- Duplicado para el efecto infinito -->
+      <span>VAPORESSO</span>
+      <span class="dot">•</span>
+      <span>ELF BAR</span>
+      <span class="dot">•</span>
+      <span>VOOPOO</span>
+      <span class="dot">•</span>
+      <span>RIOT SQUAD</span>
+      <span class="dot">•</span>
+      <span>LOST MARY</span>
+      <span class="dot">•</span>
+      <span>CRYSTAL BAR</span>
+      <span class="dot">•</span>
+      <span>JUST JUICE</span>
+      <span class="dot">•</span>
+    </div>
+  </div>
+
+  <!-- Flash Sale Section -->
+  <section class="flash-sale-section animate-fade-in-up">
+    <div class="container hover-tilt">
+      <div class="flash-sale-card glow-effect">
+        <div class="flash-content">
+          <div class="flash-badge">⚡ OFERTA RELÁMPAGO</div>
+          <h2 class="flash-title">KITS DE INICIO AL <span class="text-primary">-40%</span></h2>
+          <p class="flash-desc">El stock vuela. Consigue tu Vaporesso XROS 3 antes de que el contador llegue a cero.</p>
+          <Button href="/products" variant="primary">Comprar Ahora</Button>
+        </div>
+        <div class="flash-timer">
+          <div class="timer-box">
+            <span id="hours" class="timer-value">00</span>
+            <span class="timer-label">HORAS</span>
+          </div>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <span id="minutes" class="timer-value">00</span>
+            <span class="timer-label">MINS</span>
+          </div>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <span id="seconds" class="timer-value">00</span>
+            <span class="timer-label">SEGS</span>
+          </div>
         </div>
       </div>
     </div>
@@ -68,28 +133,30 @@ const featuredProducts = [
   <!-- Featured Products Section -->
   <section id="featured" class="featured-section">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header animate-fade-in-up">
         <h2 class="section-title">NUESTROS <span>TOP VENTAS</span></h2>
         <a href="/products" class="view-all">Ver todo el catálogo &rarr;</a>
       </div>
       
       <div class="products-grid">
-        {featuredProducts.map((product) => (
-          <ProductCard 
-            id={product.id}
-            name={product.name}
-            price={product.price}
-            category={product.category}
-            image={product.image}
-          />
+        {featuredProducts.map((product, index) => (
+          <div class={`animate-fade-in-up delay-${(index % 4) + 1}`}>
+            <ProductCard 
+              id={product.id}
+              name={product.name}
+              price={product.price}
+              category={product.category}
+              image={product.image}
+            />
+          </div>
         ))}
       </div>
     </div>
   </section>
   
   <!-- Banner Section -->
-  <section class="banner-section">
-    <div class="container banner-container">
+  <section class="banner-section animate-fade-in-up">
+    <div class="container banner-container levitate" style="animation-duration: 10s;">
       <div class="banner-content">
         <h2>OFERTA BRUTAL</h2>
         <p>Suscríbete ahora y llévate un 15% de descuento en tu primer pedido de líquidos premium & desechables.</p>
@@ -101,6 +168,55 @@ const featuredProducts = [
     </div>
   </section>
 </Layout>
+
+<script>
+  // Flash Sale Timer Logic
+  document.addEventListener('DOMContentLoaded', () => {
+    // Establecemos una oferta arbitraria de 4 horas desde la carga para la demo
+    let timeInSeconds = 4 * 60 * 60 + 23 * 60 + 15; // 4h 23m 15s
+
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    if (!hoursEl || !minutesEl || !secondsEl) return;
+
+    setInterval(() => {
+      if (timeInSeconds <= 0) return;
+      timeInSeconds--;
+
+      const h = Math.floor(timeInSeconds / 3600);
+      const m = Math.floor((timeInSeconds % 3600) / 60);
+      const s = timeInSeconds % 60;
+
+      hoursEl.textContent = h.toString().padStart(2, '0');
+      minutesEl.textContent = m.toString().padStart(2, '0');
+      secondsEl.textContent = s.toString().padStart(2, '0');
+    }, 1000);
+
+    // Hover tilt effect para la tarjeta flash
+    const hoverTilt = document.querySelector('.hover-tilt') as HTMLElement;
+    const flashCard = document.querySelector('.flash-sale-card') as HTMLElement;
+
+    if (hoverTilt && flashCard) {
+      hoverTilt.addEventListener('mousemove', (e) => {
+        const rect = hoverTilt.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
+        
+        flashCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+      });
+
+      hoverTilt.addEventListener('mouseleave', () => {
+        flashCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+      });
+    }
+  });
+</script>
 
 <style>
   /* Hero Section */
@@ -234,6 +350,164 @@ const featuredProducts = [
   @keyframes pulse {
     0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
     50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
+  }
+
+  /* Marquee de Marcas */
+  .marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+    padding: 1rem 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    white-space: nowrap;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
+  }
+
+  .marquee-content {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    animation: marqueeScroll 20s linear infinite;
+  }
+
+  .dot {
+    font-size: 1rem;
+    opacity: 0.5;
+  }
+
+  @keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Se mueve la mitad exacto (debido a la duplicación manual de items) */
+  }
+
+  /* Flash Sale Section */
+  .flash-sale-section {
+    padding: 4rem 0 2rem 0;
+  }
+
+  .hover-tilt {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+
+  .flash-sale-card {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, var(--color-bg-secondary) 0%, #0a0a0c 100%);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s ease-out;
+    box-shadow: var(--shadow-elevated);
+  }
+
+  @media (min-width: 768px) {
+    .flash-sale-card {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+  }
+
+  .flash-sale-card::after {
+    content: '';
+    position: absolute;
+    right: -20%;
+    top: -50%;
+    width: 50%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 255, 102, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .flash-content {
+    flex: 1;
+    z-index: 10;
+  }
+
+  .flash-badge {
+    display: inline-block;
+    color: #000;
+    background-color: var(--color-primary);
+    padding: 0.3rem 0.8rem;
+    font-weight: 800;
+    font-size: 0.8rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+    box-shadow: 0 0 15px var(--color-primary-glow);
+  }
+
+  .flash-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .flash-desc {
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    max-width: 450px;
+  }
+
+  .flash-timer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 10;
+    margin-top: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .flash-timer {
+      margin-top: 0;
+    }
+  }
+
+  .timer-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 255, 102, 0.3);
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-md);
+    min-width: 90px;
+  }
+
+  .timer-value {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+    line-height: 1;
+  }
+
+  .timer-label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .timer-separator {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-text-muted);
   }
 
   /* Featured Section */
