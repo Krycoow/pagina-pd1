@@ -13,6 +13,11 @@ export const authStore = persistentAtom<User>('neonclouds_auth', null, {
   decode: JSON.parse
 });
 
+// Forzar la suscripción en el cliente para asegurar que las escrituras a localStorage funcionen incluso en páginas sin UI activa (Nano Stores es lazy por defecto)
+if (typeof window !== 'undefined') {
+  authStore.subscribe(() => {});
+}
+
 export function loginUser(user: Omit<User, 'phone'> | User) {
   authStore.set(user as User);
 }
