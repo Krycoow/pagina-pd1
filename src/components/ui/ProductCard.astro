@@ -10,11 +10,6 @@ interface Props {
 }
 
 const { id, name, price, image, category } = Astro.props;
-
-// Generador predictivo de Stock para simular escasez (Se basa en el ID para no parpadear tanto, aunque en demo da igual)
-const idNumber = parseInt(id.replace(/\D/g,'')) || Math.floor(Math.random() * 10);
-const isLowStock = idNumber % 3 === 0; // 1 de cada 3 productos
-const stockCount = (idNumber % 4) + 2; // Quedan entre 2 y 5
 ---
 
 <article class="product-card glow-effect group" data-product-id={id}>
@@ -22,9 +17,11 @@ const stockCount = (idNumber % 4) + 2; // Quedan entre 2 y 5
     <div class="image-wrapper">
       <img src={image} alt={name} loading="lazy" class="product-image" />
       <div class="category-badge">{category}</div>
-      {isLowStock && (
-        <div class="fomo-badge pulse-fomo">🔥 Quedan {stockCount}</div>
-      )}
+      <div class="fomo-badge-container" data-fomo-id={id} style="display: none;">
+        <div class="fomo-badge pulse-fomo">
+          🔥 Quedan <span class="fomo-count"></span>
+        </div>
+      </div>
     </div>
     
     <div class="product-info">
@@ -57,6 +54,7 @@ const stockCount = (idNumber % 4) + 2; // Quedan entre 2 y 5
 <script>
   // 3D Tilt Effect for Product Cards
   document.addEventListener('DOMContentLoaded', () => {
+    // 1) Lógica 3D
     const cards = document.querySelectorAll('.product-card');
     
     cards.forEach(card => {
@@ -86,6 +84,44 @@ const stockCount = (idNumber % 4) + 2; // Quedan entre 2 y 5
         card.style.boxShadow = 'none';
       });
     });
+
+    // 2) Lógica FOMO Dinámica (cambia cada 2 horas basado en el timestamp)
+    const updateFomoBadges = () => {
+      const containers = document.querySelectorAll('.fomo-badge-container');
+      if (!containers.length) return;
+      
+      const now = new Date();
+      // Ciclo de rotación: Aproximadamente 2 horas (en milisegundos)
+      const cycleTime = 2 * 60 * 60 * 1000;
+      const seed = Math.floor(now.getTime() / cycleTime);
+      
+      containers.forEach(container => {
+        const id = container.getAttribute('data-fomo-id') || '';
+        let idNum = 0;
+        for(let i=0; i<id.length; i++) idNum += id.charCodeAt(i);
+        
+        // Sumamos el ID único del producto + la semilla de tiempo
+        const combinedSeed = idNum + seed;
+        
+        // Probabilidad de ~33% de tener "Bajo Stock"
+        const isLowStock = (combinedSeed % 3) === 0;
+        
+        if (isLowStock) {
+          (container as HTMLElement).style.display = 'block';
+          const countSpan = container.querySelector('.fomo-count');
+          if (countSpan) {
+            // El número de stock restante será de 2 a 5
+            countSpan.textContent = ((combinedSeed % 4) + 2).toString();
+          }
+        } else {
+          (container as HTMLElement).style.display = 'none';
+        }
+      });
+    };
+
+    updateFomoBadges();
+    // Actualiza en tiempo real por si el usuario deja la pestaña abierta al cruzar el ciclo horario
+    setInterval(updateFomoBadges, 60000);
   });
 </script>
 
