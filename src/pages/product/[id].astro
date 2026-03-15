@@ -114,6 +114,13 @@ const { product } = Astro.props;
         <div class="product-details">
           <div class="category-tag">{product.category}</div>
           <h1 class="product-title">{product.name}</h1>
+          
+          <div class="product-rating-detail">
+            <span class="stars">★★★★★</span>
+            <span class="rating-number">4.8</span>
+            <span class="reviews-count">(124 valoraciones de clientes)</span>
+          </div>
+
           <p class="product-price">${product.price.toFixed(2)}</p>
           
           <div class="product-description">
@@ -308,7 +315,31 @@ const { product } = Astro.props;
 
   .product-title {
     font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-rating-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .product-rating-detail .stars {
+    color: var(--color-primary);
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 10px var(--color-primary-glow);
+  }
+
+  .product-rating-detail .rating-number {
+    color: var(--color-text);
+    font-weight: 700;
+  }
+
+  .product-rating-detail .reviews-count {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
   }
 
   .product-price {

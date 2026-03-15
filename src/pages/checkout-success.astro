@@ -1,0 +1,175 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<Layout title="Pedido Confirmado | NeonClouds">
+  <div class="checkout-success-page animate-fade-in-up">
+    <!-- Confeti estático / decoración -->
+    <div class="confetti-container">
+      <div class="confetti" style="left: 10%; animation-delay: 0s; background-color: var(--color-primary);"></div>
+      <div class="confetti" style="left: 20%; animation-delay: 0.2s; background-color: #00ffff;"></div>
+      <div class="confetti" style="left: 30%; animation-delay: 0.4s; background-color: #ff00ff;"></div>
+      <div class="confetti" style="left: 40%; animation-delay: 0.1s; background-color: var(--color-primary);"></div>
+      <div class="confetti" style="left: 50%; animation-delay: 0.5s; background-color: #00ffff;"></div>
+      <div class="confetti" style="left: 60%; animation-delay: 0.3s; background-color: #ff00ff;"></div>
+      <div class="confetti" style="left: 70%; animation-delay: 0.6s; background-color: var(--color-primary);"></div>
+      <div class="confetti" style="left: 80%; animation-delay: 0.2s; background-color: #00ffff;"></div>
+      <div class="confetti" style="left: 90%; animation-delay: 0.4s; background-color: #ff00ff;"></div>
+    </div>
+
+    <div class="container text-center success-container">
+      <div class="success-icon-wrapper glow-effect levitate">
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="success-icon">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      
+      <h1 class="success-title">¡PEDIDO CONFIRMADO!</h1>
+      <p class="success-subtitle">Tus nubes van en camino. Número de pedido: <span class="order-number">#NC-8291X</span></p>
+      
+      <div class="success-details">
+        <p>Hemos enviado los detalles a tu correo electrónico.</p>
+        <p>Prepararemos tu envío express lo antes posible.</p>
+      </div>
+      
+      <div class="success-actions">
+        <Button href="/products" variant="primary" class="go-back-btn">VOLVER A COMPRAR</Button>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { cartItems } from '../store/cart';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Vaciar el carrito en la confirmación real de compra
+    cartItems.set({});
+    
+    // Guardar en sessionStorage para que no suene a error si recargan
+    sessionStorage.setItem('neonclouds_last_order', 'true');
+  });
+</script>
+
+<style>
+  .checkout-success-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 0;
+  }
+
+  .checkout-success-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(0, 255, 102, 0.1) 0%, transparent 70%);
+    z-index: -1;
+  }
+
+  .success-container {
+    max-width: 600px;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 4rem 2rem;
+    box-shadow: var(--shadow-elevated);
+    position: relative;
+    z-index: 10;
+  }
+
+  .success-icon-wrapper {
+    width: 120px;
+    height: 120px;
+    background-color: rgba(0, 255, 102, 0.1);
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem auto;
+    box-shadow: 0 0 30px rgba(0, 255, 102, 0.3);
+  }
+
+  .success-icon {
+    color: var(--color-primary);
+    filter: drop-shadow(0 0 10px var(--color-primary-glow));
+  }
+
+  .success-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .success-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .order-number {
+    color: var(--color-primary);
+    font-weight: 800;
+    font-family: var(--font-display);
+  }
+
+  .success-details {
+    background-color: var(--color-bg);
+    border: 1px dashed var(--border-color);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 2.5rem;
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .success-actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .go-back-btn {
+    padding: 1rem 3rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* Confetti Animation */
+  .confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .confetti {
+    position: absolute;
+    top: -20px;
+    width: 10px;
+    height: 20px;
+    animation: fall 5s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(-20vh) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+</style>

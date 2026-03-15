@@ -17,15 +17,22 @@
     <div class="cart-body">
       <!-- Los items se renderizan dinámicamente aquí vía JS -->
       <ul id="cartItemsList" class="cart-items-list">
-        <!-- Template vacío inicial -->
+        <!-- Template vacío inicial hiper-visual -->
         <li class="empty-cart-message" id="emptyCartMsg">
-          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="empty-icon">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
-          <p>Tu inventario está vacío.</p>
-          <a href="/products" class="btn-outline-small" id="continueShoppingBtn">Explorar catálogo</a>
+          <div class="empty-icon-wrapper glow-effect">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="empty-icon-svg">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+          </div>
+          <h3 class="empty-title">TUS NUBES ESTÁN VACÍAS</h3>
+          <p class="empty-desc">Añade los mejores líquidos y desechables a tu arsenal para continuar.</p>
+          <a href="/products" class="btn btn-primary btn-giant" id="continueShoppingBtn">
+            <span class="btn-content">¡LLENAR EL CARRITO!</span>
+          </a>
         </li>
       </ul>
     </div>
@@ -107,6 +114,12 @@
   document.addEventListener('DOMContentLoaded', () => {
     const headerCartBtn = document.getElementById('cartToggleBtn');
     headerCartBtn?.addEventListener('click', window.openCart);
+
+    // Lógica del botón de Checkout
+    const checkoutBtnEl = document.getElementById('checkoutBtn');
+    checkoutBtnEl?.addEventListener('click', () => {
+      window.location.href = '/checkout-success';
+    });
   });
 
   // Lógica de Renderizado Reactiva conectada a Nano Stores
@@ -299,31 +312,52 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 3rem 1rem;
+    padding: 2rem 1rem;
     color: var(--color-text-muted);
     height: 100%;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
-  .empty-icon {
-    color: var(--border-color);
+  .empty-icon-wrapper {
+    background-color: var(--color-bg);
+    border: 1px dashed var(--border-color);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 1rem;
   }
 
-  .btn-outline-small {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--color-primary);
-    color: var(--color-primary);
-    border-radius: var(--radius-sm);
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-top: 1rem;
-    transition: all var(--transition-fast);
+  .empty-icon-svg {
+    color: var(--border-color);
+    transition: color var(--transition-normal);
   }
 
-  .btn-outline-small:hover {
-    background-color: rgba(16, 185, 129, 0.1);
+  .empty-icon-wrapper:hover .empty-icon-svg {
+    color: var(--color-text-muted);
+  }
+
+  .empty-title {
+    color: var(--color-text);
+    font-size: 1.5rem;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .empty-desc {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .btn-giant {
+    width: 100%;
+    padding: 1.25rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
   }
 
   /* Cart Item Individual */
