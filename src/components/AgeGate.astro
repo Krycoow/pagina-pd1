@@ -31,12 +31,18 @@ import Button from './ui/Button.astro';
     const btnYes = document.getElementById('btnYes18');
     const btnNo = document.getElementById('btnNo18');
     
-    // Mostramos siempre la ventana por petición de demo (sin bypass de localStorage)
-    if (modal) {
+    // Verificar si ya ha sido aceptado en esta misma sesión (al cerrar pestaña, se borra)
+    const hasVerifiedAge = sessionStorage.getItem('neonclouds_age_verified');
+    
+    if (hasVerifiedAge === 'true' && modal) {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    } else if (modal) {
       // Bloquear scroll mientras el modal esté abierto
       document.body.style.overflow = 'hidden';
       
       btnYes?.addEventListener('click', () => {
+        sessionStorage.setItem('neonclouds_age_verified', 'true');
         modal.style.opacity = '0';
         setTimeout(() => {
           modal.style.display = 'none';
