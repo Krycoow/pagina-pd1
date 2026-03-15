@@ -106,8 +106,8 @@ const featuredProducts = [
       <div class="flash-sale-card glow-effect">
         <div class="flash-content">
           <div class="flash-badge">⚡ OFERTA RELÁMPAGO</div>
-          <h2 class="flash-title">KITS DE INICIO AL <span class="text-primary">-40%</span></h2>
-          <p class="flash-desc">El stock vuela. Consigue tu Vaporesso XROS 3 antes de que el contador llegue a cero.</p>
+          <h2 class="flash-title" id="flashTitle">KITS DE INICIO AL <span class="text-primary">-40%</span></h2>
+          <p class="flash-desc" id="flashDesc">El stock vuela. Consigue tu Vaporesso XROS 3 antes de que el contador llegue a cero.</p>
           <Button href="/products" variant="primary">Comprar Ahora</Button>
         </div>
         <div class="flash-timer">
@@ -153,6 +153,66 @@ const featuredProducts = [
       </div>
     </div>
   </section>
+
+  <!-- Fake Reviews Section (Social Proof) -->
+  <section class="reviews-section">
+    <div class="container">
+      <div class="section-header center-header animate-fade-in-up">
+        <h2 class="section-title">LO QUE DICEN <span>NUESTROS CLIENTES</span></h2>
+        <p class="section-subtitle">Más de 5,000 vapers confían en NeonClouds cada mes.</p>
+      </div>
+
+      <div class="reviews-grid">
+        <!-- Review 1 -->
+        <div class="review-card glow-effect animate-fade-in-up delay-1">
+          <div class="review-header">
+            <div class="review-avatar">M</div>
+            <div class="review-meta">
+              <h3 class="reviewer-name">Marcos T.</h3>
+              <div class="review-stars">★★★★★</div>
+            </div>
+            <div class="verified-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Comprador Verificado
+            </div>
+          </div>
+          <p class="review-text">"El envío fue brutalmente rápido. Pedí unos desechables Elf Bar a las 16:00 y al día siguiente por la mañana ya los tenía en casa. Sabores increíbles."</p>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card glow-effect animate-fade-in-up delay-2">
+          <div class="review-header">
+            <div class="review-avatar avatar-2">L</div>
+            <div class="review-meta">
+              <h3 class="reviewer-name">Laura G.</h3>
+              <div class="review-stars">★★★★★</div>
+            </div>
+            <div class="verified-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Comprador Verificado
+            </div>
+          </div>
+          <p class="review-text">"La mejor tienda de vapeo de España sin duda. Los líquidos de Riot Squad siempre están en stock y el XROS 3 que compré va de lujo. 100% recomendados."</p>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card glow-effect animate-fade-in-up delay-3">
+          <div class="review-header">
+            <div class="review-avatar avatar-3">D</div>
+            <div class="review-meta">
+              <h3 class="reviewer-name">David S.</h3>
+              <div class="review-stars">★★★★☆</div>
+            </div>
+            <div class="verified-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Comprador Verificado
+            </div>
+          </div>
+          <p class="review-text">"Muy buenos precios en resistencias y sales de nicotina. La atención al cliente por WhatsApp me resolvió una duda al instante. Volveré a comprar seguro."</p>
+        </div>
+      </div>
+    </div>
+  </section>
   
   <!-- Banner Section -->
   <section class="banner-section animate-fade-in-up">
@@ -170,29 +230,76 @@ const featuredProducts = [
 </Layout>
 
 <script>
-  // Flash Sale Timer Logic
+  // Flash Sale Infinite Loop Logic
   document.addEventListener('DOMContentLoaded', () => {
-    // Establecemos una oferta arbitraria de 4 horas desde la carga para la demo
-    let timeInSeconds = 4 * 60 * 60 + 23 * 60 + 15; // 4h 23m 15s
-
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
     const secondsEl = document.getElementById('seconds');
+    const flashTitle = document.getElementById('flashTitle');
+    const flashDesc = document.getElementById('flashDesc');
 
-    if (!hoursEl || !minutesEl || !secondsEl) return;
+    if (!hoursEl || !minutesEl || !secondsEl || !flashTitle || !flashDesc) return;
 
-    setInterval(() => {
-      if (timeInSeconds <= 0) return;
-      timeInSeconds--;
+    // Diferentes ofertas para rotar cuando el contador llegue a 0
+    const offers = [
+      {
+        title: 'KITS DE INICIO AL <span class="text-primary">-40%</span>',
+        desc: 'El stock vuela. Consigue tu Vaporesso XROS 3 antes de que el contador acabe.'
+      },
+      {
+        title: 'LIQUIDOS PREMIUM <span class="text-primary">2x1</span>',
+        desc: 'Añade 2 Riot Squad al carrito y paga solo 1. Oferta limitada por tiempo récord.'
+      },
+      {
+        title: 'DESECHABLES DESDE <span class="text-primary">$4.99</span>',
+        desc: 'Liquidación brutal en Elf Bar V2. Sabores seleccionados hasta fin de existencias.'
+      }
+    ];
 
-      const h = Math.floor(timeInSeconds / 3600);
-      const m = Math.floor((timeInSeconds % 3600) / 60);
-      const s = timeInSeconds % 60;
+    let currentOfferIndex = 0;
+    // Empezamos con un tiempo bajo para probar/demo, o uno largo. Pongamos 1h 15m 10s inicial
+    let timeInSeconds = 1 * 60 * 60 + 15 * 60 + 10; 
 
-      hoursEl.textContent = h.toString().padStart(2, '0');
-      minutesEl.textContent = m.toString().padStart(2, '0');
-      secondsEl.textContent = s.toString().padStart(2, '0');
-    }, 1000);
+    function startFlashSale() {
+      const timer = setInterval(() => {
+        if (timeInSeconds <= 0) {
+          clearInterval(timer);
+          
+          // Cambiar a la siguiente oferta
+          currentOfferIndex = (currentOfferIndex + 1) % offers.length;
+          flashTitle.innerHTML = offers[currentOfferIndex].title;
+          flashDesc.textContent = offers[currentOfferIndex].desc;
+          
+          // Generar nuevo tiempo aleatorio entre 2 y 6 horas
+          const randomHours = Math.floor(Math.random() * 5) + 2;
+          const randomMinutes = Math.floor(Math.random() * 60);
+          timeInSeconds = randomHours * 3600 + randomMinutes * 60;
+          
+          // Reiniciar el bucle visualmente
+          const card = document.querySelector('.flash-sale-card') as HTMLElement;
+          if (card) {
+            card.style.animation = 'none';
+            card.offsetHeight; /* trigger reflow */
+            card.style.animation = 'pulse 0.5s ease-out';
+          }
+          
+          startFlashSale(); // Empezar de nuevo
+          return;
+        }
+
+        timeInSeconds--;
+
+        const h = Math.floor(timeInSeconds / 3600);
+        const m = Math.floor((timeInSeconds % 3600) / 60);
+        const s = timeInSeconds % 60;
+
+        hoursEl.textContent = h.toString().padStart(2, '0');
+        minutesEl.textContent = m.toString().padStart(2, '0');
+        secondsEl.textContent = s.toString().padStart(2, '0');
+      }, 1000);
+    }
+
+    startFlashSale();
 
     // Hover tilt effect para la tarjeta flash
     const hoverTilt = document.querySelector('.hover-tilt') as HTMLElement;
@@ -637,4 +744,122 @@ const featuredProducts = [
       flex-direction: column;
     }
   }
+
+  /* Reviews Section */
+  .reviews-section {
+    padding: 6rem 0;
+    background-color: var(--color-bg-secondary);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .center-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    border-bottom: none;
+    margin-bottom: 4rem;
+  }
+
+  .section-subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .reviews-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .review-card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .review-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+  }
+
+  .review-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .review-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), #004d26);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: #000;
+  }
+
+  .avatar-2 { background: linear-gradient(135deg, #00ffff, #004d4d); }
+  .avatar-3 { background: linear-gradient(135deg, #ff00ff, #4d004d); color: white; }
+
+  .review-meta {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .reviewer-name {
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .review-stars {
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 5px var(--color-primary-glow);
+  }
+
+  .verified-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+  }
+
+  .verified-badge svg {
+    color: var(--color-primary);
+  }
+
+  .review-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
 </style>
