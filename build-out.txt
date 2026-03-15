@@ -1,0 +1,23 @@
+
+> asatro@0.0.1 build
+> astro build
+
+[2m01:01:42[22m [34m[types][39m Generated [2m34ms[22m
+[2m01:01:42[22m [34m[build][39m output: [34m"static"[39m
+[2m01:01:42[22m [34m[build][39m mode: [34m"static"[39m
+[2m01:01:42[22m [34m[build][39m directory: [34mC:\Users\kryco\Documents\paginas pd1\asatro\dist\[39m
+[2m01:01:42[22m [34m[build][39m Collecting build info...
+[2m01:01:42[22m [34m[build][39m [32m✓ Completed in 47ms.[39m
+[2m01:01:42[22m [34m[build][39m Building static entrypoints...
+
+[31m[1m01:01:42[22m [ERROR] [vite][39m [31m✗[39m Build failed in 616ms
+[31m[CompilerError][39m [astro:build] The closing frontmatter fence (---) is missing an opening fence
+file: C:/Users/kryco/Documents/paginas pd1/asatro/src/components/ui/Button.astro:22:1
+  [1mHint:[22m
+[33m    Add --- at the beginning of your file before any import statements or code[39m
+  [1mLocation:[22m
+    [4mC:/Users/kryco/Documents/paginas pd1/asatro/src/components/ui/Button.astro:22:1[24m
+  [1mStack trace:[22m
+[2m    at handleCompileResultErrors (file:///C:/Users/kryco/Documents/paginas%20pd1/asatro/node_modules/astro/dist/core/compile/compile.js:63:11)
+    at async compileAstro (file:///C:/Users/kryco/Documents/paginas%20pd1/asatro/node_modules/astro/dist/vite-plugin-astro/compile.js:13:23)
+    at async transform (file:///C:/Users/kryco/Documents/paginas%20pd1/asatro/node_modules/rollup/dist/es/shared/node-entry.js:21269:16)[22m

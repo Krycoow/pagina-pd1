@@ -30,19 +30,13 @@ import Button from './ui/Button.astro';
     const modal = document.getElementById('ageGateModal');
     const btnYes = document.getElementById('btnYes18');
     const btnNo = document.getElementById('btnNo18');
-
-    // Verificar si ya ha sido aceptado antes
-    const hasVerifiedAge = localStorage.getItem('neonclouds_age_verified');
     
-    if (hasVerifiedAge === 'true' && modal) {
-      modal.style.display = 'none';
-      modal.setAttribute('aria-hidden', 'true');
-    } else if (modal) {
+    // Mostramos siempre la ventana por petición de demo (sin bypass de localStorage)
+    if (modal) {
       // Bloquear scroll mientras el modal esté abierto
       document.body.style.overflow = 'hidden';
       
       btnYes?.addEventListener('click', () => {
-        localStorage.setItem('neonclouds_age_verified', 'true');
         modal.style.opacity = '0';
         setTimeout(() => {
           modal.style.display = 'none';

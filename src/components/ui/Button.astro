@@ -5,6 +5,7 @@ interface Props {
   class?: string;
   id?: string;
   type?: 'button' | 'submit' | 'reset';
+  [key: string]: any; // Permite pasar atributos data-* libremente
 }
 
 const { 
@@ -12,7 +13,8 @@ const {
   variant = 'primary', 
   class: className = '',
   id,
-  type = 'button'
+  type = 'button',
+  ...rest
 } = Astro.props;
 
 const baseClass = 'btn';
@@ -21,11 +23,11 @@ const combinedClass = `${baseClass} ${variantClass} ${className}`;
 ---
 
 {href ? (
-  <a href={href} class={combinedClass} id={id}>
+  <a href={href} class={combinedClass} id={id} {...rest}>
     <span class="btn-content"><slot /></span>
   </a>
 ) : (
-  <button type={type} class={combinedClass} id={id}>
+  <button type={type} class={combinedClass} id={id} {...rest}>
     <span class="btn-content"><slot /></span>
   </button>
 )}
